@@ -4,27 +4,28 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
+import { AuthMiddleware } from './auth/auth.middleware';
+import { LoggerMiddleware } from './logger/logger.middleware';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { LoggerMiddleware } from './logger/logger.middleware';
-import { AuthMiddleware } from './auth/auth.middleware';
 
 @Module({
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [UsersService, PrismaService],
 })
 export class UsersModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     // Para todas las rutas
     // consumer.apply(LoggerMiddleware).forRoutes("users")
     // Para una/s ruta/s en especifico
-    consumer
+/*     consumer
       .apply(LoggerMiddleware)
       .forRoutes(
         { path: '/users', method: RequestMethod.GET },
         { path: '/users', method: RequestMethod.POST },
       )
       .apply(AuthMiddleware)
-      .forRoutes('users');
+      .forRoutes('users'); */
   }
 }
