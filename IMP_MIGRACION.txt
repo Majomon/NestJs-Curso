@@ -1,0 +1,6 @@
+Para hacer la migracion en produccion con prisma usa el siguiente comando ademas de reemplazar el
+DATABASE_URL que tenes en el .env de devop a produccion
+
+npx prisma db push
+
+Esto va a leer la configuracion de prisma y va a generarlo en la url de PRODUCCION
