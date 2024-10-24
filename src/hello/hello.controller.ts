@@ -11,7 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { ValidateuserPipe } from 'src/pipes/validateuser/validateuser.pipe';
+import { ValidateuserPipe } from '../hello/pipes/validateuser/validateuser.pipe';
 import { AuthGuard } from './guards/auth/auth.guard';
 
 @Controller()

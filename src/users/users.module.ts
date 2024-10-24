@@ -1,9 +1,30 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
+import { LoggerMiddleware } from './logger/logger.middleware';
+import { AuthMiddleware } from './auth/auth.middleware';
 
 @Module({
   controllers: [UsersController],
-  providers: [UsersService]
+  providers: [UsersService],
 })
-export class UsersModule {}
+export class UsersModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    // Para todas las rutas
+    // consumer.apply(LoggerMiddleware).forRoutes("users")
+    // Para una/s ruta/s en especifico
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes(
+        { path: '/users', method: RequestMethod.GET },
+        { path: '/users', method: RequestMethod.POST },
+      )
+      .apply(AuthMiddleware)
+      .forRoutes('users');
+  }
+}
