@@ -23,6 +23,14 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
 
+  // Cualquier web puede pedir informacion
+  app.enableCors();
+
+  // Solo un dominio puede solicitar la informacion
+/*   app.enableCors({
+    origin: 'https://mauridev.com',
+  }); */
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
