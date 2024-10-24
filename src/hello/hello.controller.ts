@@ -13,8 +13,10 @@ import {
 import { Request, Response } from 'express';
 import { ValidateuserPipe } from '../hello/pipes/validateuser/validateuser.pipe';
 import { AuthGuard } from './guards/auth/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller()
+@ApiTags('Hello')
 export class HelloController {
   @Get('/')
   index(@Req() request: Request, @Res() response: Response) {
