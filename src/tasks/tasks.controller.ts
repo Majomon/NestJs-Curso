@@ -1,4 +1,13 @@
-import { Controller, Delete, Get, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 
 @Controller('/tasks')
@@ -7,13 +16,15 @@ export class TaskController {
   constructor(private tasksService: TasksService) {}
   // Decorador
   @Get()
-  getAll() {
+  getAllTask(@Query() query: any) {
+    console.log(query);
+    
     return this.tasksService.getTasks();
   }
 
   @Post()
-  createTask() {
-    return this.tasksService.createTask();
+  createTask(@Body() task: any) {
+    return this.tasksService.createTask(task);
   }
 
   @Put()
