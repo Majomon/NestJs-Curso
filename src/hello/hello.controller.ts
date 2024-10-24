@@ -1,5 +1,16 @@
-import { Controller, Get, HttpCode, Req, Res } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  ParseBoolPipe,
+  ParseIntPipe,
+  Query,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
+import { ValidateuserPipe } from 'src/pipes/validateuser/validateuser.pipe';
 
 @Controller()
 export class HelloController {
@@ -24,9 +35,20 @@ export class HelloController {
     return '404 not found';
   }
 
-  @Get('error')
-  @HttpCode(404)
-  errorPage() {
-    return 'Error route!!!';
+  @Get('ticket/:num')
+  getNumber(@Param('num', ParseIntPipe) num: number) {
+    return num + 14;
+  }
+
+  @Get('active/:status')
+  isUserActive(@Param('status', ParseBoolPipe) status: boolean) {
+    return status;
+  }
+  @Get('greet')
+  greet(@Query(ValidateuserPipe) query: { name: string; age: number }) {
+    console.log(typeof query.age);
+    console.log(typeof query.name);
+
+    return `Hello, ${query.name}! You are ${query.age} years old.`;
   }
 }
