@@ -1,5 +1,13 @@
+import { IsString, MinLength } from "class-validator";
+
 // Este archivo vendria a ser una interfas
-export interface CreateTaskDto {
+export class CreateTaskDto {
+  //Decoradores
+  @IsString()
+  @MinLength(1)
   title: string;
-  status: string;
+
+  @IsString()
+  @MinLength(1)
+  description: string;
 }
