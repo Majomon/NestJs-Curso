@@ -14,6 +14,7 @@ async function bootstrap() {
     }),
   );
 
+  // Configuración de swagger
   const config = new DocumentBuilder()
     .setTitle('Documentacion')
     .setDescription('Documentacion del curso de Nest que hice')
